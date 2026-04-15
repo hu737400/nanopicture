@@ -1,0 +1,123 @@
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nano - 科研绘图编辑器</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="editor-page">
+    <header class="topbar editor-header">
+      <div class="editor-topline">
+        <div class="editor-brand">
+          <h1>NanoPro</h1>
+        </div>
+        <a class="topbar-ad editor-ad" href="https://messci.com/" target="_blank" rel="noopener noreferrer">
+        </a>
+      </div>
+    </header>
+
+    <main class="layout editor-shell editor-layout" id="editorShell">
+      <aside class="panel editor-sidebar">
+        <div class="sidebar-head">
+          <h2>控制台</h2>
+        </div>
+
+        <div id="editorControls" class="editor-controls">
+          <section class="control-card upload-card">
+            <input id="uploadInput" type="file" accept="image/png" />
+            <input id="importElementInput" type="file" accept="image/*" class="hidden-input" />
+          </section>
+
+          <section class="control-card">
+            <h3>工具</h3>
+            <div class="tool-grid">
+              <button data-tool="move" class="tool-btn active">移动对象 (V)</button>
+              <button data-tool="cutout" class="tool-btn">框选切出(C)</button>
+              <button data-tool="erase" class="tool-btn">擦除区域(E)</button>
+              <button data-tool="text" class="tool-btn">添加文字</button>
+              <button data-tool="cropSprite" class="tool-btn">裁剪图片</button>
+              <button id="importElementBtn" type="button">本地元素</button>
+              <label for="zoomRange">缩放 (alt+鼠标滚轮)</label>
+              <input id="zoomRange" type="range" min="10" max="300" value="100" step="1">
+              <span id="zoomValue">100%</span>
+            </div>
+            <button id="undoBtn" class="undo-btn" disabled>撤回上一步</button>
+          </section>
+
+          <section class="control-card">
+            <h3>文字</h3>
+            <label>内容</label>
+            <input id="textInput" type="text" value="新文字" maxlength="120" />
+
+            <label>字体</label>
+            <select id="fontFamilyInput">
+              <option value="Arial">Arial</option>
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Helvetica">Helvetica</option>
+              <option value="SimHei">SimHei</option>
+              <option value="Microsoft YaHei">Microsoft YaHei</option>
+            </select>
+
+            <label>字号(px)</label>
+            <input id="fontSizeInput" type="number" min="8" max="480" value="32" />
+
+            <label>颜色</label>
+            <input id="textColorInput" type="color" value="#000000" />
+
+            <label>旋转(°)</label>
+            <input id="textRotationInput" type="number" min="-360" max="360" value="0" />
+
+            <div class="checkline-row">
+              <label class="checkline">
+                <input id="fontBoldInput" type="checkbox" />
+                字体加粗
+              </label>
+
+              <label class="checkline">
+                <input id="fontThinInput" type="checkbox" />
+                字体变细
+              </label>
+            </div>
+
+            <div class="row">
+              <button id="editTextBtn">编辑选中文字</button>
+              <button id="deleteSelectedBtn" class="danger">删除选中</button>
+            </div>
+          </section>
+
+          <section class="control-card">
+            <h3>导出</h3>
+            <div class="row">
+              <button id="exportBtn">导出 PNG</button>
+              <button id="exportTiffBtn">导出 TIFF</button>
+            </div>
+            <div class="row">
+              <button id="saveProjectBtn">保存工程 JSON</button>
+              <input id="loadProjectInput" type="file" accept="application/json" />
+            </div>
+          </section>
+        </div>
+      </aside>
+
+      <section class="workspace-wrap workspace-panel">
+        <div class="workspace-bar">
+          <div class="workspace-meta" id="metaInfo">尚未加载图片</div>
+        </div>
+
+        <div class="stage-shell">
+          <div class="workspace" id="workspace">
+            <canvas id="editorCanvas"></canvas>
+            <div id="emptyState" class="empty-state">上传 PNG 开始编辑</div>
+          </div>
+        </div>
+
+        <p class="workspace-note">支持 PNG 底图、对象编辑与无损导出。</p>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
